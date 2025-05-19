@@ -1,75 +1,122 @@
-USE CampusLoveDB; -- Asegúrate de estar en la base de datos correcta
+# 💖 CampusLove - Donde Nace el Amor (Versión Consola) 💖
 
--- --- INSERTS PARA LA TABLA Usuarios ---
+¡Bienvenido a CampusLove! Una aplicación de consola en C# que simula un sistema de emparejamiento universitario. Conecta con otros estudiantes, descubre perfiles interesantes, ¡y quizás encuentres a tu media naranja académica!
 
-INSERT INTO Usuarios (Nombre, Edad, Genero, Intereses, Carrera, FrasePerfil, CreditosLikesDiarios, UltimoReinicioCreditos, FechaRegistro) VALUES
-('AnaLopez', 20, 'Femenino', 'Musica,Viajar,Fotografia', 'Diseño Gráfico', 'Buscando inspiración y conexiones genuinas ✨', 10, CURDATE(), NOW()),
-('CarlosRuiz', 22, 'Masculino', 'Deportes,Cine,Tecnologia', 'Ingeniería de Software', 'Programando mi vida y buscando mi co-piloto 💻', 8, CURDATE(), NOW()),
-('SofiaGomez', 19, 'Femenino', 'Leer,Arte,Yoga,Cocina', 'Psicología', 'Explorando la mente y el corazón 🧘‍♀️', 10, CURDATE(), NOW()),
-('DavidMartinez', 21, 'Masculino', 'Videojuegos,Anime,Senderismo', 'Animación Digital', 'Creando mundos y buscando aventuras 🎮', 5, CURDATE(), NOW()),
-('LauraPerez', 23, 'Femenino', 'Baile,Idiomas,Netflix', 'Comunicación Audiovisual', 'Amante de las buenas historias y el café ☕', 10, CURDATE(), NOW()),
-('JavierTorres', 20, 'Masculino', 'Futbol,Gym,Emprender', 'Administración de Empresas', 'Siempre en movimiento, buscando el próximo gran proyecto 🚀', 7, CURDATE(), NOW()),
-('ElenaMorales', 22, 'Femenino', 'Mascotas,Naturaleza,Voluntariado', 'Veterinaria', 'Cuidando a los que no tienen voz 🐾', 10, CURDATE(), NOW()),
-('MiguelAngel', 24, 'Masculino', 'Musica,Conciertos,Guitarra,Filosofia', 'Música', 'La vida es una canción, busco con quién compartir la melodía 🎸', 9, CURDATE(), NOW());
+## 🌟 Descripción del Proyecto
 
--- --- INSERTS PARA LA TABLA Interacciones ---
--- Asumimos que los IDs de usuario son 1 para Ana, 2 para Carlos, etc. (según el orden de inserción anterior)
+CampusLove es una aplicación de consola diseñada para simular un sistema de citas. Permite a los usuarios registrarse, explorar perfiles de otros estudiantes, expresar interés ("Like") o desinterés ("Dislike"), y descubrir coincidencias ("Matches") cuando el interés es mutuo.
 
--- Ana (ID 1) da Like a Carlos (ID 2)
-INSERT INTO Interacciones (UsuarioOrigenID, UsuarioDestinoID, TipoInteraccion, FechaInteraccion) VALUES
-(1, 2, 'Like', NOW());
+El proyecto implementa un flujo completo de interacciones, utilizando C# con .NET 8, una base de datos MySQL para la persistencia de datos, y una interfaz de usuario operada completamente a través de la consola. Se ha puesto énfasis en una arquitectura limpia, principios SOLID y patrones de diseño para una base de código robusta y mantenible.
 
--- Carlos (ID 2) da Like a Ana (ID 1) -> Esto debería generar un MATCH
-INSERT INTO Interacciones (UsuarioOrigenID, UsuarioDestinoID, TipoInteraccion, FechaInteraccion) VALUES
-(2, 1, 'Like', NOW());
+## ✨ Características Principales
 
--- Sofia (ID 3) da Like a David (ID 4)
-INSERT INTO Interacciones (UsuarioOrigenID, UsuarioDestinoID, TipoInteraccion, FechaInteraccion) VALUES
-(3, 4, 'Like', NOW());
+*   **Registro de Usuarios:** Crea tu perfil con nombre, edad, género, intereses, carrera y una frase que te defina.
+*   **Visualización de Perfiles:** Explora perfiles de otros usuarios uno por uno.
+*   **Interacciones Like/Dislike:** Expresa tu interés o sigue buscando.
+*   **Sistema de Matches:** ¡Descubre quién también te dio Like! Se forma un Match cuando ambos usuarios se gustan.
+*   **Listado de Matches:** Consulta todos tus Matches en cualquier momento.
+*   **Créditos de Interacción:** Un sistema de "créditos de like" diarios para fomentar interacciones más significativas (configurable, por defecto 10 likes/día).
+*   **Estadísticas del Sistema:** Visualiza datos interesantes como el usuario con más likes recibidos o más matches.
+*   **Interfaz de Consola Amigable:** Menús claros, con colores y emojis para una experiencia más agradable. 😉
+*   **Persistencia en Base de Datos:** Todos los datos de usuarios, interacciones y matches se guardan en MySQL.
 
--- David (ID 4) da Dislike a Sofia (ID 3)
-INSERT INTO Interacciones (UsuarioOrigenID, UsuarioDestinoID, TipoInteraccion, FechaInteraccion) VALUES
-(4, 3, 'Dislike', NOW());
+## 🛠️ Tecnologías Utilizadas
 
--- Laura (ID 5) da Like a Javier (ID 6)
-INSERT INTO Interacciones (UsuarioOrigenID, UsuarioDestinoID, TipoInteraccion, FechaInteraccion) VALUES
-(5, 6, 'Like', NOW());
+*   **Lenguaje:** C#
+*   **Plataforma:** .NET 8.0
+*   **Base de Datos:** MySQL
+*   **Acceso a Datos:** ADO.NET con la ayuda de Dapper (micro-ORM)
+*   **IDE Sugerido (Desarrollo):** Visual Studio Code / Visual Studio
+*   **Consola:** Interfaz de usuario principal.
 
--- Javier (ID 6) da Like a Laura (ID 5) -> Esto debería generar un MATCH
-INSERT INTO Interacciones (UsuarioOrigenID, UsuarioDestinoID, TipoInteraccion, FechaInteraccion) VALUES
-(6, 5, 'Like', NOW());
+## 📐 Arquitectura y Diseño
 
--- Elena (ID 7) da Like a MiguelAngel (ID 8)
-INSERT INTO Interacciones (UsuarioOrigenID, UsuarioDestinoID, TipoInteraccion, FechaInteraccion) VALUES
-(7, 8, 'Like', NOW());
+El proyecto sigue principios de **Arquitectura Limpia** y **SOLID**:
 
--- Ana (ID 1) da Like a David (ID 4)
-INSERT INTO Interacciones (UsuarioOrigenID, UsuarioDestinoID, TipoInteraccion, FechaInteraccion) VALUES
-(1, 4, 'Like', NOW());
+*   **Core (Dominio):** Contiene las entidades (`Usuario`, `Interaccion`, `Match`), enums y las interfaces de los repositorios. Es el corazón del dominio y no depende de otras capas.
+*   **Application (Lógica de Aplicación):** Orquesta los casos de uso. Contiene los servicios (`UsuarioService`, `EmparejamientoService`, `EstadisticasService`), fábricas (`UsuarioFactory`) y estrategias (`IMatchingStrategy`). Depende de `Core`.
+*   **Infrastructure (Infraestructura):** Implementa las interfaces definidas en `Core` para el acceso a datos (ej. `UsuarioRepository` para MySQL) y otras preocupaciones externas. Depende de `Core`.
+*   **ConsoleApp (Presentación):** Es la aplicación de consola que interactúa con el usuario. Contiene `Program.cs` (punto de entrada y configuración de "DI manual"), `ConsoleUI.cs` (para la interfaz) y extensiones. Depende de `Application` y `Core`.
 
--- Carlos (ID 2) da Like a Sofia (ID 3)
-INSERT INTO Interacciones (UsuarioOrigenID, UsuarioDestinoID, TipoInteraccion, FechaInteraccion) VALUES
-(2, 3, 'Like', NOW());
+**Patrones de Diseño Aplicados:**
 
+*   **Repository Pattern:** Para abstraer el acceso a datos.
+*   **Factory Pattern:** Para la creación de objetos (`UsuarioFactory`, `DbConnectionFactory`).
+*   **Strategy Pattern:** Para definir diferentes algoritmos de emparejamiento/sugerencia de perfiles (`IMatchingStrategy`).
+*   **Inyección de Dependencias (Manual):** Las dependencias se inyectan a través de los constructores en `Program.cs`.
 
--- --- INSERTS PARA LA TABLA Matches ---
--- Estos se generarían automáticamente por la lógica de la aplicación si dos usuarios se dan Like.
--- Pero si quieres forzar algunos matches directamente en la BD para probar "Ver Mis Matches":
+## 🚀 Cómo Empezar
 
--- Match entre Ana (ID 1) y Carlos (ID 2)
--- (Asegúrate que Usuario1ID < Usuario2ID)
-INSERT INTO Matches (Usuario1ID, Usuario2ID, FechaMatch)
-SELECT 1, 2, NOW()
-WHERE NOT EXISTS (SELECT 1 FROM Matches WHERE (Usuario1ID = 1 AND Usuario2ID = 2));
+### Prerrequisitos
 
--- Match entre Laura (ID 5) y Javier (ID 6)
-INSERT INTO Matches (Usuario1ID, Usuario2ID, FechaMatch)
-SELECT 5, 6, NOW()
-WHERE NOT EXISTS (SELECT 1 FROM Matches WHERE (Usuario1ID = 5 AND Usuario2ID = 6));
+1.  **SDK de .NET 8.0:** Asegúrate de tenerlo instalado ([Descargar .NET](https://dotnet.microsoft.com/download/dotnet/8.0)).
+2.  **Servidor MySQL:** Necesitas una instancia de MySQL corriendo (local o remota).
+3.  **Gestor de MySQL (Opcional pero recomendado):** MySQL Workbench, DBeaver, phpMyAdmin, etc., para ejecutar el script de creación de la base de datos.
 
+### Pasos para la Configuración
 
--- --- Opcional: Actualizar algunos créditos para simular uso ---
-UPDATE Usuarios SET CreditosLikesDiarios = 7, UltimoReinicioCreditos = CURDATE() WHERE UsuarioID = 1; -- Ana usó 3 likes
-UPDATE Usuarios SET CreditosLikesDiarios = 6, UltimoReinicioCreditos = CURDATE() WHERE UsuarioID = 2; -- Carlos usó 2 likes (el original era 8)
+1.  **Clonar el Repositorio (si aplica):**
+    ```bash
+    git clone https://tu-repositorio-git.com/campuslove.git
+    cd campuslove
+    ```
 
-SELECT 'Datos de ejemplo insertados en CampusLoveDB.' AS Estado;
+2.  **Crear la Base de Datos y Tablas:**
+    *   Abre tu gestor de MySQL.
+    *   Copia y ejecuta el script SQL proporcionado en `Database/setup.sql` (o el script que te facilitó el desarrollador) para crear la base de datos `CampusLoveDB` y todas sus tablas.
+    *   *(Opcional)* Ejecuta el script de `Database/sample-data.sql` (o los inserts que te facilitó el desarrollador) para poblar la base de datos con datos de ejemplo.
+
+3.  **Configurar la Cadena de Conexión:**
+    *   Abre el archivo `CampusLove.ConsoleApp/Program.cs`.
+    *   Busca la constante `MySqlConnectionString` cerca del inicio de la clase `Program`.
+    *   **Modifica la cadena de conexión** con los datos de tu servidor MySQL (servidor, puerto, nombre de la base de datos, usuario y contraseña).
+        ```csharp
+        private const string MySqlConnectionString = "Server=TU_SERVIDOR;Port=TU_PUERTO;Database=CampusLoveDB;Uid=TU_USUARIO_MYSQL;Pwd=TU_CONTRASEÑA_MYSQL;";
+        ```
+
+4.  **Restaurar Dependencias y Compilar:**
+    Abre una terminal en la raíz del proyecto (donde está el archivo `campuslove.csproj` o `campuslove.sln`).
+    ```bash
+    dotnet restore
+    dotnet build
+    ```
+
+5.  **Ejecutar la Aplicación:**
+    ```bash
+    dotnet run --project CampusLove.ConsoleApp/CampusLove.ConsoleApp.csproj
+    ```
+    O si estás en la raíz y tu `campuslove.csproj` es el ejecutable:
+    ```bash
+    dotnet run
+    ```
+
+### 🎮 Uso de la Aplicación
+
+Una vez que la aplicación se esté ejecutando:
+
+1.  Sigue las instrucciones del menú en consola.
+2.  **Regístrate** como nuevo usuario o **Inicia Sesión** si ya tienes una cuenta (con los datos de ejemplo si los insertaste).
+3.  Explora las opciones: ver perfiles, dar likes/dislikes, revisar tus matches, etc.
+4.  ¡Diviértete!
+
+## 🤝 Contribuciones
+
+¡Las contribuciones son bienvenidas! Si quieres mejorar CampusLove, por favor:
+
+1.  Haz un Fork del proyecto.
+2.  Crea tu Feature Branch (`git checkout -b feature/AmazingFeature`).
+3.  Commitea tus cambios (`git commit -m 'Add some AmazingFeature'`).
+4.  Push al Branch (`git push origin feature/AmazingFeature`).
+5.  Abre un Pull Request.
+
+## 📝 Licencia
+
+Este proyecto está bajo la Licencia MIT - mira el archivo `LICENSE.md` para más detalles (si decides añadir uno).
+
+## 🧑‍💻 Desarrollador Principal
+
+*   **[Tu Nombre / Tu Alias]** - [Tu Email o GitHub si quieres]
+
+---
+
+¡Que empiece el flechazo! 🏹❤️
