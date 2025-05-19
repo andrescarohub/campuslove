@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.66" /> <!-- O la que tengas -->
+    <PackageReference Include="MySql.Data" Version="8.3.0" /> <!-- Recomiendo 8.3.0 o 8.4.0 en lugar de 9.x si da problemas -->
+  </ItemGroup>
+</Project>
